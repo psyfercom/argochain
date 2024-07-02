@@ -18,13 +18,6 @@ if ! sudo apt-get update -y && sudo apt-get upgrade -y; then
     echo "Failed to update and upgrade packages. Continuing to next step."
 fi
 
-# Install build dependencies for Substrate
-echo "Installing build dependencies for Substrate..."
-dependencies=("build-essential" "clang" "libclang-dev" "curl" "libssl-dev" "llvm" "libudev-dev" "pkg-config" "zlib1g-dev" "git")
-for package in "${dependencies[@]}"; do
-    install_if_not_installed "$package"
-done
-
 # Install Python3 and pip
 echo "Installing Python3 and pip..."
 install_if_not_installed "python3"
