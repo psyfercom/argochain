@@ -1,121 +1,41 @@
-# Introducing the ArgoChain-SDK
-![photo_2024-04-29 13 29 45](https://github.com/Devolved-AI/Argochain/assets/96510238/9989a2c0-dbdf-4baa-b8fc-54e3c75f7445)
-------------------
-We are thrilled to release the ArgoChain-SDK, specifically designed for developers eager to explore and innovate within the ArgoChain ecosystem. This toolkit facilitates the development, testing, and deployment of decentralized applications, providing you a robust platform on our testnet.
+Argochain SDK
 
-Here's the updated guide with instructions on how to check the time until the next era:
+The Argochain SDK is a blockchain based on the Polkadot Substrate framework and built securely in Rust.
 
----
+Running a Validator
 
-# Adding a New Validator
+Until further down the roadmap you will have to compile the Argochain SDK to build the Argochain Node Client in order to run a validator node and stake your AGC. Binary builds can be found on our Releases page in the releases to come, but these will only suitable for local dApp development and testing scenarios.
 
-### Step 1: Install Rust
+Building and compiling the node is a one-time, but very resource intensive process and we recommend the following hardware specifications:
 
-#### On Linux:
+Recommended Specifications
+CPU: 16 cores
+RAM: 32 GB
+Storage: 1TB SSD
+Network: 1 Gpbs Internet Connection
 
-1. **Install Dependencies**:
-   ```bash
-   sudo apt install build-essential git clang curl libssl-dev protobuf-compiler
-   ```
-2. **Install Rust**:
-   ```bash
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   source $HOME/.cargo/env
-   rustup default stable
-   rustup update
-   rustup target add wasm32-unknown-unknown --toolchain nightly
-   ```
+Please click here to go right to the Validator Guide and get started.
 
-#### On Windows:
+Argochain Validator Guide
+Argoscan Explorer
+https://devolvedai.com
 
-1. **Enable WSL**:
-   ```bash
-   wsl --install
-   ```
-2. **Install Dependencies and Rust**:
-   ```bash
-   sudo apt update
-   sudo apt install git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
-   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-   source ~/.cargo/env
-   rustup default stable
-   rustup update
-   rustup target add wasm32-unknown-unknown --toolchain nightly
-   ```
+Development workflow
 
-### Step 2: Setup Key Pairs
+Pull request
 
-1. **Install Subkey**:
-   ```bash
-   cargo install subkey --force --locked
-   ```
+All changes (except new releases) are handled through pull requests.
 
-2. **Clone and Build ArgoChain**:
-   ```bash
-   git clone --branch tokenomics https://github.com/Devolved-AI/Argochain.git
-   cd Argochain
-   cargo build --release
-   ```
+Versioning
 
-### Step 3: Generate Keys
+Frontier follows Semantic Versioning. An unreleased crate in the repository will have the -dev suffix in the end, and we do rolling releases.
 
-**For BABE (Block Production):**
-```bash
-subkey generate --scheme Sr25519 --password-interactive
-./target/release/argochain key insert --base-path /tmp/node05 --chain ./customSpecRaw.json --scheme Sr25519 --suri <Secret Seed> --password-interactive --key-type babe
-```
+When you make a pull request against this repository, please also update the affected crates' versions, using the following rules. Note that the rules should be applied recursively -- if a change modifies any upper crate's dependency (even just the Cargo.toml file), then the upper crate will also need to apply those rules.
 
-**For GRANDPA (Finality Gadget):**
-```bash
-subkey generate --scheme Ed25519 --password-interactive
-./target/release/argochain key insert --base-path /tmp/node05 --chain ./customSpecRaw.json --scheme Ed25519 --suri <Secret Seed> --password-interactive --key-type gran
-```
+Additionally, if your change is notable, then you should also modify the corresponding CHANGELOG.md file, in the "Unreleased" section.
 
-**For IM Online (Heartbeat Mechanism):**
-```bash
-subkey generate --scheme Sr25519 --password-interactive
-./target/release/argochain key insert --base-path /tmp/node05 --chain ./customSpecRaw.json --scheme Sr25519 --suri <Secret Seed> --password-interactive --key-type imon
-```
+If the affected crate already has -dev suffix:
 
-**For Authority Discovery (Network Discovery):**
-```bash
-subkey generate --scheme Sr25519 --password-interactive
-./target/release/argochain key insert --base-path /tmp/node05 --chain ./customSpecRaw.json --scheme Sr25519 --suri <Secret Seed> --password-interactive --key-type audi
-```
+If your change is a patch, then you do not have to update any versions. If your change introduces a new feature, please check if the local version already had its minor version bumped, if not, bump it. If your change modifies the current interface, please check if the local version already had its major version bumped, if not, bump it. If the affected crate does not yet have -dev suffix:
 
-### Step 4: Run Validator Node
-
-Start the validator node with the following command:
-```bash
-nohup ./target/release/argochain --base-path /tmp/<path> --chain customSpecRaw.json --port <port> --rpc-port <rpc port> --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --name <name> --validator --rpc-methods Unsafe --unsafe-rpc-external --rpc-max-connections 15000 --rpc-cors all &
-```
-
-### Step 5: View Logs
-
-To view the logs of your running validator node, use the following command:
-```bash
-tail -f nohup.out
-```
-This will display the log output in real-time, allowing you to monitor the node's activity.
-
-### Step 6: Check Time Until Next Era
-
-1. **Access Polkadot.js Apps**: Go to [Polkadot.js Apps](https://polkadot.js.org/apps/).
-2. **Navigate to Staking**: Click on "Network" in the top menu, then select "Staking".
-3. **Check Era Progress**: On the staking page, you will see the current era and a progress bar indicating how much time is left until the next era.
-
-### Step 7: Staking
-
-1. **Access ArgoScan Explorer**: Go to [ArgoScan Explorer](https://explorer.argoscan.net/).
-2. **Navigate to Staking**: Go to Network -> Staking -> Accounts.
-3. **Get Rotate Keys**: Run the following command to rotate keys:
-   ```bash
-   curl -H "Content-Type: application/json" --data '{"jsonrpc":"2.0", "method":"author_rotateKeys", "params":[], "id":1}' http://localhost:<rpc port>
-   ```
-4. **Bond and Validate**: Follow the bonding process to start validating.
-
-Wait for an era (approximately 1 hour) to begin participating in block validation.
-
----
-
-This guide provides detailed steps for installing Rust, setting up key pairs, running a validator node, viewing logs, checking the time until the next era, and staking for new validators on the ArgoChain. For more information, refer to the original [documentation](https://github.com/mitun567/Docs/blob/main/Add_Validator.md).
+If your change is a patch, then bump the patch version, and add -dev suffix. If your change introduces a new feature, then bump the minor version, and add -dev suffix. If your change modifies the current interface, then bump the major version, and add -dev suffix. If your pull request introduces a new crate, please set its version to 1.0.0-dev.
