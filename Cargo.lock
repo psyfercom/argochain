@@ -314,7 +314,7 @@ dependencies = [
  "frame-system-rpc-runtime-api",
  "futures",
  "hex",
- "hex-literal 0.3.4",
+ "hex-literal 0.4.1",
  "jsonrpc-core",
  "jsonrpsee",
  "log",
