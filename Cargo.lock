@@ -371,7 +371,7 @@ dependencies = [
  "sc-transaction-pool-api",
  "serde",
  "serde_json",
- "soketto",
+ "soketto 0.8.0",
  "sp-api",
  "sp-authority-discovery",
  "sp-block-builder",
@@ -932,6 +932,12 @@ name = "base64"
 version = "0.21.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "604178f6c5c21f02dc555784810edfb88d34ac2c73b2eae109655649ee73ce3d"
+
+[[package]]
+name = "base64"
+version = "0.22.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 
 [[package]]
 name = "base64ct"
@@ -4376,7 +4382,7 @@ dependencies = [
  "jsonrpsee-types 0.16.3",
  "pin-project",
  "rustls-native-certs",
- "soketto",
+ "soketto 0.7.1",
  "thiserror",
  "tokio",
  "tokio-rustls",
@@ -4407,7 +4413,7 @@ dependencies = [
  "rustc-hash",
  "serde",
  "serde_json",
- "soketto",
+ "soketto 0.7.1",
  "thiserror",
  "tokio",
  "tracing",
@@ -4430,7 +4436,7 @@ dependencies = [
  "rustc-hash",
  "serde",
  "serde_json",
- "soketto",
+ "soketto 0.7.1",
  "thiserror",
  "tokio",
  "tracing",
@@ -4495,7 +4501,7 @@ dependencies = [
  "jsonrpsee-types 0.16.3",
  "serde",
  "serde_json",
- "soketto",
+ "soketto 0.7.1",
  "tokio",
  "tokio-stream",
  "tokio-util",
@@ -4517,7 +4523,7 @@ dependencies = [
  "route-recognizer",
  "serde",
  "serde_json",
- "soketto",
+ "soketto 0.7.1",
  "thiserror",
  "tokio",
  "tokio-stream",
@@ -5181,7 +5187,7 @@ dependencies = [
  "parking_lot 0.12.1",
  "quicksink",
  "rw-stream-sink",
- "soketto",
+ "soketto 0.7.1",
  "url",
  "webpki-roots 0.22.6",
 ]
@@ -10535,6 +10541,21 @@ dependencies = [
  "log",
  "rand 0.8.5",
  "sha-1",
+]
+
+[[package]]
+name = "soketto"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "37468c595637c10857701c990f93a40ce0e357cedb0953d1c26c8d8027f9bb53"
+dependencies = [
+ "base64 0.22.1",
+ "bytes",
+ "futures",
+ "httparse",
+ "log",
+ "rand 0.8.5",
+ "sha1",
 ]
 
 [[package]]
