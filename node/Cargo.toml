@@ -157,7 +157,7 @@ substrate-cli-test-utils = { git = "https://github.com/paritytech/substrate.git"
 
 sc-client-db = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
 futures = "0.3.21"
-tempfile = "3.1.0"
+tempfile = "3.10.1"
 assert_cmd = "2.0.2"
 nix = { version = "0.26.1", features = ["signal"] }
 serde_json = "1.0"
